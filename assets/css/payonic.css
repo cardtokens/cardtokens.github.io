@@ -1,21 +1,21 @@
 .theme-bg-dark {
-    background-color: rgb(0, 35, 51);
+    background-color: rgb(36, 31, 91);
 }
 
 .btn-primary {
-    background: rgb(0, 35, 51);
+    background: rgb(36, 31, 91);
 }
 
 .social-list li a {
-    color: rgb(0, 35, 51);
+    color: rgb(36, 31, 91);
 }
 
 .theme-icon-holder {
-    color: rgb(0, 35, 51);
+    color: rgb(36, 31, 91);
 }
 
 .btn-light {
-    color: rgb(0, 35, 51);
+    color: rgb(36, 31, 91);
 }
 
 .logo-icon {
@@ -23,24 +23,24 @@
 }
 
 .docs-nav .nav-item.section-title .nav-link {
-    color: rgb(0, 35, 51);
+    color: rgb(36, 31, 91);
 }
 
 .docs-nav .nav-item.active .nav-link .theme-icon-holder {
-    background: rgb(0, 35, 51);
+    background: rgb(36, 31, 91);
 }
 
 .docs-nav .nav-item.active .nav-link {
-    color: rgb(0, 35, 51);
+    color: rgb(36, 31, 91);
 }
 
 .nav {
-    --bs-nav-link-color:  rgb(0, 35, 51);
-    --bs-nav-link-hover-color:rgb(0, 35, 51);
+    --bs-nav-link-color:  rgb(36, 31, 91);
+    --bs-nav-link-hover-color:rgb(36, 31, 91);
 }
 
 .docs-nav .nav-link.active .theme-icon-holder {
-    background: rgb(0, 35, 51);
+    background: rgb(36, 31, 91);
 }
 
 /* Style the tab */
