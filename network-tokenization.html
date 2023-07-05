@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>cardtokens.io</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Network scheme Tokenization enables frictionless, card-free payments with benefit your merchants with higher approval rates, lower costs, and increased conversion rates. Cardtokens is a Network Scheme Token aggregator that supports Network Scheme Tokenization through VISA and Mastercard.">
+    <meta name="author" content="Cardtokens">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet" defer>
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+	<!-- Payonic JS-->
+    <script defer src="assets/js/payonic.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="./assets/css/atom-one-dark.min.css" defer>
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css" defer>
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+	<link id="payonic-style" rel="stylesheet" href="assets/css/payonic.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2" src="assets/images/cardtokens-logo.png" alt="logo"><span class="logo-text">CARDTOKENS.IO</span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+						<li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-github fa-fw"></i></a></li>
+			            <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+		                <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-slack fa-fw"></i></a></li>
+		                <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-product-hunt fa-fw"></i></a></li>
+		            </ul><!--//social-list-->
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Cardtokens</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">CIT</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">MIT</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-4">Card schemes connected</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-5">Terms and Definitions</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Get started</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Get a free test-account</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">How to test</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-3">Functions available</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>API</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Authentication and headers required</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">API response</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Onboard merchant</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+		    <div class="container">
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Introduction</h1>
+					    <section class="docs-intro">
+							<p>This document aims to form an overview of the Cardtokens integration API to help 3rd party integrators connect to Cardtokens and process major network tokens.</p>
+							<h3 id="item-1-1">Cardtokens</h3>
+						    <p>Cardtokens Aps is a token aggregator that helps acquirers, payment service providers, and large and enterprise merchants connect token services to major card schemes using a uniform API, which is plug ’n play for the developers. Using the SasS platform by Cardtokens Aps, 3rd parties can easily start converting their existing PAN into network tokens and minimize the risk of exposed PANs.</p>
+							<h3 id="item-1-2">CIT</h3>
+							<p>With <b>CIT network tokenization</b>, we ensure that each cardholder-initiated transaction is securely tokenized, replacing sensitive payment information with unique identifiers. By doing so, we eliminate the need for businesses to store sensitive card data, significantly reducing the risk of data breaches and enhancing overall security. This not only safeguards customer information but also instills trust and confidence in your brand.</p>
+							<h3 id="item-1-3">MIT</h3>
+							<p>Additionally, our <b>MIT network tokenization</b> provides merchants with greater control and flexibility over recurring or subscription-based payments. Through tokenization, we create a secure token that represents the customer's payment information, eliminating the need to store actual card data on the merchant's system. This enhances the customer experience by simplifying the payment process while maintaining the highest standards of security.</p>
+							<h3 id="item-1-4">Card schemes connected</h3>
+							<p>Cardtokens supports VISA (VTS) and Mastercard (MDES/M4M).</p>
+							<h3 id="item-1-5">Terms and Definitions</h3>
+							<p>
+								<style>
+									.tableTerms tr td:first-child {
+										padding-right: 50px;
+										font-weight: bold;
+									}
+
+									.tableTerms tr td {
+										padding-bottom: 10px;
+									}
+								</style>
+								<table class="tableTerms" width="100%">
+									<tr><td>VTS</td><td>VISA Token Service</td></tr>
+									<tr><td>MDES</td><td>Mastercard Digital Enablement Service </td></tr>
+									<tr><td>PSP</td><td>Payment Service Provider – Providers who offer an online terminal opened from the merchant website to process payments online within the PCI-DSS scope.</td></tr>
+									<tr><td>Integrator</td><td>A 3rd party PSP, acquirer, merchant, which is PCI DSS compliance. </td></tr>
+									<tr><td>Card scheme</td><td>Payment networks linked to payment cards, such as debit or credit cards. Visa and Mastercard are some of the major card schemes. </td></tr>
+									<tr><td>Token</td><td>Also refers to network tokens issued by the card schemes. </td></tr>
+									<tr><td>Token event</td><td>Is an event on behalf of a token transmitted from a cardholder/merchant toward the card scheme.</td></tr>
+									<tr><td>Token notification</td><td>Is a notification from the card scheme transmitted to the cardholder/merchant.</td></tr>
+									<tr><td>PSP</td><td>Payment Service Provider. A service provider that services merchants by hosted payment solutions.</td></tr>
+									<tr><td>COF</td><td>Card On File. Meaning authorizations sourced from PANs are stored locally. These types of authorizations are normally recurring.</td></tr>
+									<tr><td>SaaS</td><td>Software as a Service. Typically named for hosted services, which are easy to integrate into existing solutions.</td></tr>
+									<tr><td>PAN</td><td>Primary Account Number. E.g., card number.</td></tr>
+									<tr><td>Cardtokens</td><td>Referred to Cardtokens Aps and www.cardtokens.io</td></tr>
+									<tr><td>CHD</td><td>Cardholder data. Information such as card number, expiry date, security code, cardholder name, etc.</td></tr>
+									<tr><td>CIT</td><td>Cardholder-initiated transactions (CIT) are payments initiated and authorized by a cardholder by entering card details or using stored credentials and payment details - transactions where a cardholder takes an active part.</td></tr>
+									<tr><td>MIT</td><td>Merchant-initiated transactions (MIT) are payments undertaken by businesses with a mandate from a cardholder. That is regular recurring payments (COF), where the cardholder has stored the card details on a website (at a payment service provider). The merchant then performs the authorization using their connected payment service provider.</td></tr>
+									<tr><td>Merchant ID</td><td>Merchant Identification Number is a unique identification number attached to a business. Every merchant will receive a unique merchant ID when they are onboarded.  </td></tr>
+									<tr><td>Cryptogram</td><td>A cryptogram is network data generated before actual CIT authorization request for a token transaction is made. The cryptogram itself is encrypted and can only be read by the token service and the issuer responsible. All other actors, on the other hand, are not able to subsequently change the cryptogram. The cryptogram is transmitted in the CIT authorization.</td></tr>
+								</table>
+							</p>
+						</section><!--//docs-intro-->
+				    </header>
+			    </article><!--//docs-article-->
+
+				<article class="docs-article" id="section-2">
+					<section class="docs-sectionx">
+						<h1 class="section-heading">Get started</h1>
+						<h3 id="item-2-1">Get a free test-account</h3>
+						<p>The integrator needs to apply for a test account: https://www.cardtokens.io/get-started.</p>
+						<p>When the test account is in place, the integrator must set up API keys and an endpoint to receive push notifications upon token updates.</p>
+						<h3 id="item-2-2">How to test</h3>
+						<p>Before you can perform a test, a test-API-key must be created. When creating tokens using this test-API-key, the following test PANs can be used only:</p>
+						<h5 id="item-2-3">Visa</h5>
+						<p>
+							<ul>
+								<li>4111111145551142</li>
+								<li>4293189100000008</li> 
+								<li>4166676667666746</li>
+								<li>4646464646464644</li>
+								<li>4000060000000006</li>
+							</ul>
+						</p>
+						<h5 id="item-2-3">Mastercard</h5>
+						<p>
+							<ul>
+								<li>5555341244441115</li>
+								<li>5577000055770004</li>
+								<li>5555555555554444</li>
+								<li>2222400050000009</li>
+								<li>2222400030000004</li>
+							</ul>
+						</p>
+						<p>
+							When requesting using the test PANs, the expiry date must be valid (unexpired). 
+						</p>
+						<h3 id="item-2-4">Functions available </h3>
+						<p>For Cardtokens to provide the SaaS solution to the integrator, the following functions must / can be implemented:</p>
+						<h5>Onboarding</h5>
+						<p>Function to create a merchant on the VTS/MDES platform</p>
+						<h5>Create token</h5>
+						<p>Creates a network token on behalf of CHD and returns the token to the requester (acquirer, PSP, merchant).</p>
+						<h5>Create cryptogram / get payment data</h5>
+						<p>Must be initiated when authorization is to be made by PSP. </p>
+						<h5>Get token status</h5>
+						<p>This method is used to request the status of an existing token.</p>
+						<h5>Delete token</h5>
+						<p>When a token is no longer needed, it must be deleted by this function.</p>
+						<h5>Get card art</h5>
+						<p>It is used to get the graphical details of a payment card associated with a token.</p>
+						<h5>Token notification</h5>
+						<p>When the issuer updates a token, an HTTP GET notification is transmitted from Cardtokens to 3rd parties.</p>
+						<h5>Merchant onboarded notification</h5>
+						<p>An HTTP GET notification is transmitted from Cardtokens to 3rd parties when a merchant is fully enrolled within the scheme environments.</p>
+					</section>
+				</article>
+
+				<article class="docs-article" id="section-3">
+					<section class="docs-section">
+						<h2 class="section-heading">API</h2>
+						<h3 id="item-3-1">Authentication and headers required</h3>
+						<p>The Cardtokens API is a rest full API over HTTPS connection. Data is encrypted using TLS 1.2. Authentication is required for each request using a shared API key added to the HTTP headers.</p>
+						<p>Two headers must be added to the HTTP request when transmitting the request:</p>
+						<ul>
+							<li>Content-Type: application/json</li>
+							<li>X-Api-Key: 5251XXX-THE-API-KEY-XXXXX6bd69</li>
+						</ul>
+						<p>The prefix for the endpoint of the Cardtokens API is: https://api.cardtokens.io/api</p>
+						<h3 id="item-3-2">API response</h3>
+						<p>On success, the Cardtokens API responds by HTTP 200, and a valid payload is transmitted back to the client.</p>
+						<p>On failure, the Cardtokens API responds by any other status code than HTTP 200. The reason is transmitted back to the client in the payload.</p>
+						<h3 id="item-3-3">Onboard merchant</h3>
+						<p>Each merchant must be onboarded to the platform before the integrator can start to tokenize the PANs. When the merchant is onboarded toward VTS and MDES, the integrator will receive a unique Merchant ID. Below is a state-chart diagram, which shows the onboarding flow.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/onboard-merchant.png"></td>
+									<td>
+										<p>1) The integrator initiates the onboarding of a merchant by calling Cardtokens.</p>
+										<p>2) Cardtokens onboards towards Mastercard MDES.</p>
+										<p>3) Cardtokens onboards to VISA VTS.</p>
+										<p>4) The integrator will receive a Merchant ID when the onboarding is completed to both VTS and MDES. </p>
+
+									</td>
+								</tr>
+							</table>
+						</p>
+						<h5>Endpoint and method</h5>
+						<p>Method: POST</p>
+						<p>Endpoint: https://api.cardtokens.io/api/merchant</p>
+						<h5>Request parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">companyprimarylegalname</td>
+										<td>String</td>
+									    <td><b>Required.</b> The legal name of the merchant.</td>
+									</tr>
+
+									<tr>
+									    <td class="theme-bg-light">primarywebsiteurl</td>
+										<td>String</td>
+									    <td><b>Required.</b> The primary website URL of the merchant. Must start with https://.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">companycity</td>
+										<td>String</td>
+									    <td><b>Required.</b> The city of the merchant.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">companycountrycode</td>
+										<td>String</td>
+									    <td><b>Required.</b> The country code of the merchant. E.g., Denmark is “DK”. The field is formatted according to ISO-3166-2.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">primarycontactemail</td>
+										<td>String</td>
+									    <td><b>Required.</b> The e-mail address of the primary contact at the merchant.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">businessidentificationtype</td>
+										<td>String</td>
+									    <td><b>Required.</b> The type of business identification type. For the following countries, this value must be “VAT”.
+											Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Republic of Cyprus, Romania, Saudi Arabia, Slovak Republic, Slovenia, South Africa, Spain, Sweden, Switzerland, Turkey, Ukraine, United Arab Emirates, United Kingdom.
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">businessidentificationvalue</td>
+										<td>String</td>
+									    <td><b>Required.</b> The value associated with the business identifier type, if provided.
+											For the countries specified, the value has to be formatted like {countrycode}{value}. E.g., Cardtokens Aps is formatted like DK42967920.
+										</td>
+									</tr>
+
+									
+								</tbody>
+							</table>
+						</div>
+						<h5>Response parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">merchantid</td>
+										<td>String</td>
+									    <td>The unique reference to the onboarded merchant.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">schemes</td>
+										<td>String[]</td>
+									    <td>An array of schemes connected to this merchant. Values can be of “visa”, “mastercard”, “testscheme”.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Example request</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"companyprimarylegalname"</span>: <span class="hljs-string">"Cardtokens Aps"</span>,
+	<span class="hljs-attr">"primarywebsiteurl"</span>: <span class="hljs-number">"https://www.cardtokens.io"</span>,
+	<span class="hljs-attr">"companycity"</span>: <span class="hljs-string">"Aalborg"</span>,
+	<span class="hljs-attr">"companycountrycode"</span>: <span class="hljs-string">"DK"</span>,
+	<span class="hljs-attr">"primarycontactemail"</span>: <span class="hljs-string">"webmaster@cardtokens.io"</span>,
+	<span class="hljs-attr">"businessidentificationtype"</span>: <span class="hljs-string">"VAT"</span>,
+	<span class="hljs-attr">"businessidentificationvalue"</span>: <span class="hljs-string">"DK42967920"</span>
+}
+							</code></pre>
+						</div>
+						<h5>Example response</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"33df271c57c6441785e03a116a35de98"</span>,
+	<span class="hljs-attr">"schemes"</span>: <span class="hljs-number">[ "mastercard", "visa", "testscheme" ]</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<h5>Onboard time</h5>
+						<p>
+							<b>Notice that it takes approx.  48 hours for the schemes to enable an onboarded merchant. </b>
+							Merchants who are not yet enabled within the schemes will return an error 400 (status code) upon create token requests:
+							<br>
+							<i>{"status":400,"message":"Input to tokenRequestorId is invalid","reason":"trConfigIssue"}</i>
+						</p>
+						<h5>Scheme onboarding notification</h5>
+						<p>When the merchant is confirmed enabled with all the connected schemes, Cardtokens will notify the integrator using GET. You are now able to generate network tokens for the merchant. Cardtokens notifies when Cardtokens has validated that the onboarded agreement works by creating a token directly towards the schemes. A notification is transmitted for each scheme onboarded.</p>
+						<h6>Endpoint and method</h6>
+						<p>Method: GET</p>
+						<p>End point: https://www.website-super-shop /merchant/{merchantid}/visa</p>
+						<p>End point: https://www.website-super-shop /merchant/{merchantid}/mastercard</p>
+						<p>End point: https://www.website-super-shop /merchant/{merchantid}/testscheme (test only)</p>
+					</section>
+				</article>
+						
+
+				
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+						<p class="text-center text-muted mt-3 mb-3">© Copyright Cardtokens Aps <span id="footerYear">2023</span>. All Rights Reserved.</p>
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+</body>
+</html> 
+
