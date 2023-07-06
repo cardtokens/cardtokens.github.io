@@ -102,15 +102,15 @@
 					    <h1 class="docs-heading">Introduction</h1>
 					    <section class="docs-intro">
 							<p>This document aims to form an overview of the Cardtokens integration API to help 3rd party integrators connect to Cardtokens and process major network tokens.</p>
-							<h3 id="item-1-1">Cardtokens</h3>
+							<h4 id="item-1-1">Cardtokens</h4>
 						    <p>Cardtokens Aps is a token aggregator that helps acquirers, payment service providers, and large and enterprise merchants connect token services to major card schemes using a uniform API, which is plug ’n play for the developers. Using the SasS platform by Cardtokens Aps, 3rd parties can easily start converting their existing PAN into network tokens and minimize the risk of exposed PANs.</p>
-							<h3 id="item-1-2">CIT</h3>
+							<h4 id="item-1-2">CIT</h4>
 							<p>With <b>CIT network tokenization</b>, we ensure that each cardholder-initiated transaction is securely tokenized, replacing sensitive payment information with unique identifiers. By doing so, we eliminate the need for businesses to store sensitive card data, significantly reducing the risk of data breaches and enhancing overall security. This not only safeguards customer information but also instills trust and confidence in your brand.</p>
-							<h3 id="item-1-3">MIT</h3>
+							<h4 id="item-1-3">MIT</h4>
 							<p>Additionally, our <b>MIT network tokenization</b> provides merchants with greater control and flexibility over recurring or subscription-based payments. Through tokenization, we create a secure token that represents the customer's payment information, eliminating the need to store actual card data on the merchant's system. This enhances the customer experience by simplifying the payment process while maintaining the highest standards of security.</p>
-							<h3 id="item-1-4">Card schemes connected</h3>
+							<h4 id="item-1-4">Card schemes connected</h4>
 							<p>Cardtokens supports VISA (VTS) and Mastercard (MDES/M4M).</p>
-							<h3 id="item-1-5">Terms and Definitions</h3>
+							<h4 id="item-1-5">Terms and Definitions</h4>
 							<p>
 								<style>
 									.tableTerms tr td:first-child {
@@ -120,6 +120,7 @@
 
 									.tableTerms tr td {
 										padding-bottom: 10px;
+										font-size: small
 									}
 								</style>
 								<table class="tableTerms" width="100%">
@@ -150,14 +151,14 @@
 				<article class="docs-article" id="section-2">
 					<section class="docs-sectionx">
 						<h1 class="section-heading">Get started</h1>
-						<h3 id="item-2-1">Get a free test-account</h3>
+						<h4 id="item-2-1">Get a free test-account</h4>
 						<p>The integrator needs to apply for a test account: https://www.cardtokens.io/get-started.</p>
 						<p>When the test account is in place, the integrator must set up API keys and an endpoint to receive push notifications upon token updates.</p>
-						<h3 id="item-2-2">How to test</h3>
+						<h4 id="item-2-2">How to test</h4>
 						<p>Before you can perform a test, a test-API-key must be created. When creating tokens using this test-API-key, the following test PANs can be used only:</p>
 						<h5 id="item-2-3">Visa</h5>
 						<p>
-							<ul>
+							<ul style="font-size: small;">
 								<li>4111111145551142</li>
 								<li>4293189100000008</li> 
 								<li>4166676667666746</li>
@@ -167,7 +168,7 @@
 						</p>
 						<h5 id="item-2-3">Mastercard</h5>
 						<p>
-							<ul>
+							<ul style="font-size: small;">
 								<li>5555341244441115</li>
 								<li>5577000055770004</li>
 								<li>5555555555554444</li>
@@ -178,7 +179,7 @@
 						<p>
 							When requesting using the test PANs, the expiry date must be valid (unexpired). 
 						</p>
-						<h3 id="item-2-4">Functions available </h3>
+						<h4 id="item-2-4">Functions available </h4>
 						<p>For Cardtokens to provide the SaaS solution to the integrator, the following functions must / can be implemented:</p>
 						<h5>Onboarding</h5>
 						<p>Function to create a merchant on the VTS/MDES platform</p>
@@ -202,7 +203,7 @@
 				<article class="docs-article" id="section-3">
 					<section class="docs-section">
 						<h2 class="section-heading">API</h2>
-						<h3 id="item-3-1">Authentication and headers required</h3>
+						<h4 id="item-3-1">Authentication and headers required</h4>
 						<p>The Cardtokens API is a rest full API over HTTPS connection. Data is encrypted using TLS 1.2. Authentication is required for each request using a shared API key added to the HTTP headers.</p>
 						<p>Two headers must be added to the HTTP request when transmitting the request:</p>
 						<ul>
@@ -210,7 +211,7 @@
 							<li>X-Api-Key: 5251XXX-THE-API-KEY-XXXXX6bd69</li>
 						</ul>
 						<p>The prefix for the endpoint of the Cardtokens API is: https://api.cardtokens.io/api</p>
-						<h3 id="item-3-2">API response</h3>
+						<h4 id="item-3-2">API response</h4>
 						<p>On success, the Cardtokens API responds by HTTP 200, and a valid payload is transmitted back to the client.</p>
 						<p>On failure, the Cardtokens API responds by any other status code than HTTP 200. The reason is transmitted back to the client in the payload.</p>
 
