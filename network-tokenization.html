@@ -83,6 +83,14 @@
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Authentication and headers required</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">API response</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Onboard merchant</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Create token</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">Get cryptogram</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Get token status</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-7">Delete token</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-8">Get card art</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-9">Token notification</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-10">Fallback using PAN</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-11">Smart debugging</a></li>
 			    </ul>
 
 		    </nav><!--//docs-nav-->
@@ -205,6 +213,8 @@
 						<h3 id="item-3-2">API response</h3>
 						<p>On success, the Cardtokens API responds by HTTP 200, and a valid payload is transmitted back to the client.</p>
 						<p>On failure, the Cardtokens API responds by any other status code than HTTP 200. The reason is transmitted back to the client in the payload.</p>
+
+						<!-- onboard merchant -->
 						<h3 id="item-3-3">Onboard merchant</h3>
 						<p>Each merchant must be onboarded to the platform before the integrator can start to tokenize the PANs. When the merchant is onboarded toward VTS and MDES, the integrator will receive a unique Merchant ID. Below is a state-chart diagram, which shows the onboarding flow.</p>
 						<p>
@@ -272,9 +282,7 @@
 									    <td><b>Required.</b> The value associated with the business identifier type, if provided.
 											For the countries specified, the value has to be formatted like {countrycode}{value}. E.g., Cardtokens Aps is formatted like DK42967920.
 										</td>
-									</tr>
-
-									
+									</tr>									
 								</tbody>
 							</table>
 						</div>
@@ -337,6 +345,643 @@
 						<p>End point: https://www.website-super-shop /merchant/{merchantid}/visa</p>
 						<p>End point: https://www.website-super-shop /merchant/{merchantid}/mastercard</p>
 						<p>End point: https://www.website-super-shop /merchant/{merchantid}/testscheme (test only)</p>
+						
+						<br><br>
+
+						<!-- create token -->
+						<h3 id="item-3-4">Create Token</h3>
+						<p>This call generates a network token on behalf of a PAN. The flow is as follows.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/create-token.png" alt="Create token flow"></td>
+									<!-- td>
+										<p>1) The integrator initiates the onboarding of a merchant by calling Cardtokens.</p>
+										<p>2) Cardtokens onboards towards Mastercard MDES.</p>
+										<p>3) Cardtokens onboards to VISA VTS.</p>
+										<p>4) The integrator will receive a Merchant ID when the onboarding is completed to both VTS and MDES. </p>
+
+									</td-->
+								</tr>
+							</table>
+						</p>
+						<h5>Endpoint and method</h5>
+						<p>Method: POST</p>
+						<p>Endpoint: https://api.cardtokens.io/api/token</p>
+						<h5>Request parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">card.pan</td>
+										<td>String</td>
+									    <td><b>Required.</b> The cardholder PAN to convert into a network token. Please notice that this field must be encrypted using an RSA public key delivered by Cardtokens. Details about encryption are explained in the section “Pan encryption” below.</td>
+									</tr>
+
+									<tr>
+									    <td class="theme-bg-light">card.expmonth</td>
+										<td>Integer</td>
+									    <td><b>Required.</b> The cardholder expiry month formatted as N2 (1 = 01).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">card.expyear</td>
+										<td>Integer</td>
+									    <td><b>Required.</b> The cardholder expiry year formatted as N4 (e.g., 2099).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">card.securitycode</td>
+										<td>String</td>
+									    <td>Optionally. The CVV2 / CVC value of the card. For better conversion, the schemes advise adding the security code when available. Many issuers still validate on security code in the authorizations.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">merchantid</td>
+										<td>String</td>
+									    <td><b>Required.</b> Unique identifier of the merchant received from Cardtokens when creating the merchant. The created network token will only work with this merchant id.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">billingaddress.line1</td>
+										<td>String</td>
+									    <td>Optional. Street 1 on billing address for the payment instrument.
+											Format: Alphabetic, numeric, and the following alphanumeric characters: period (.), comma (,), single quote ('), hyphen (-), pound sign or hashtag (#), forward slash (/) and whitespace; maximum 140 characters.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">billingaddress.line2</td>
+										<td>String</td>
+									    <td>Optional. Street 2 on billing address for the payment instrument.
+											Format: Alphabetic, numeric, and the following alphanumeric characters: period (.), comma (,), single quote ('), hyphen (-), pound sign or hashtag (#), forward slash (/) and whitespace; maximum 140 characters.</td>
+									</tr>									
+									<tr>
+									    <td class="theme-bg-light">billingaddress.city</td>
+										<td>String</td>
+									    <td>Optional. The city associated with the enrolled payment instrument.
+											Format: Alphabetic, single quote ('), hyphen (-), and whitespace.; maximum 100 characters.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">billingaddress.state</td>
+										<td>String</td>
+									    <td>Optional. State or province code in ISO 3166-2 format, e.g., NY.
+											Format: Alphabetic; maximum 3 characters.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">billingaddress.country</td>
+										<td>String</td>
+									    <td>Optional. Country in ISO 3166-1 alpha-2 format, e.g., US.
+											Format: Alphabetic; maximum 2 characters.
+											</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">billingaddress.postalcode</td>
+										<td>String</td>
+									    <td>Optional. The postal code associated with the enrolled payment instrument.
+											Note: This field does not support spaces (" ") in the middle of characters.
+											Format: Alphabetic, numeric, e.g., spaces are not allowed; maximum 3–16 characters.
+											</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Response parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">scheme</td>
+										<td>String</td>
+									    <td>The major scheme of the token. It can be one of “visa”, “mastercard” or “testscheme”.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">token</td>
+										<td>String</td>
+									    <td>
+											The major scheme network token generated.<br>
+											Visa: The unencrypted field contains a token as a 13-16 character string.<br>
+											Mastercard: TokenNumber returned in field TokenDetailData from the Tokenize api call. This value is formatted as minLength: 9, maxLength: 19 and example: 5123456789012345<br>
+											Test scheme: This is a 16 digit simulated mod10 compatible number starting with "1" (prefix).
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">tokenid</td>
+										<td>String</td>
+									    <td>The unique reference of the token when communicating to the Cardtokens API. This reference must be stored locally as this value is the key reference to the token when communicating with the Cardtokens API.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expmonth</td>
+										<td>Integer</td>
+									    <td>The expiry month of the token. E.g., 01. Formatted as N1/N2</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expyear</td>
+										<td>Integer</td>
+									    <td>The expiry year of the token. E.g., 2099. Formatted as N4</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Encrypted example request</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"enccard"</span>: <span class="hljs-string">"NjAwNzIyMDAwMDAwMDAwNDYwMDcyMjAwMDAwMDAwMDQ2MDA3MjIwM………DAwNA=="</span>,
+	<span class="hljs-attr">"billingaddress"</span>: 
+	{
+		<span class="hljs-attr">"line1"</span>: <span class="hljs-number">"Gammel Havn 1"</span>,
+		<span class="hljs-attr">"line2"</span>: <span class="hljs-string">""</span>,
+		<span class="hljs-attr">"city"</span>: <span class="hljs-string">"Aalborg"</span>,
+		<span class="hljs-attr">"state"</span>: <span class="hljs-string">"Northjutland"</span>,
+		<span class="hljs-attr">"country"</span>: <span class="hljs-string">"DK"</span>,
+		<span class="hljs-attr">"postalcode"</span>: <span class="hljs-string">"9000"</span>
+	}
+}
+							</code></pre>
+						</div>
+						<h5>Unencrypted example request</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"card"</span>: 
+	{
+		<span class="hljs-attr">"pan"</span>: <span class="hljs-string">"6007220000000004"</span>,
+		<span class="hljs-attr">"expmonth"</span>: <span class="hljs-string">2</span>,
+		<span class="hljs-attr">"expyear"</span>: <span class="hljs-string">2028</span>,
+		<span class="hljs-attr">"securitycode"</span>: <span class="hljs-string">"000"</span>
+	},
+	<span class="hljs-attr">"billingaddress"</span>: 
+	{
+		<span class="hljs-attr">"line1"</span>: <span class="hljs-number">"Gammel Havn 1"</span>,
+		<span class="hljs-attr">"line2"</span>: <span class="hljs-string">""</span>,
+		<span class="hljs-attr">"city"</span>: <span class="hljs-string">"Aalborg"</span>,
+		<span class="hljs-attr">"state"</span>: <span class="hljs-string">"Northjutland"</span>,
+		<span class="hljs-attr">"country"</span>: <span class="hljs-string">"DK"</span>,
+		<span class="hljs-attr">"postalcode"</span>: <span class="hljs-string">"9000"</span>
+	}
+}
+							</code></pre>
+						</div>
+						<h5>Example response</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"scheme"</span>: <span class="hljs-string">"testscheme"</span>,
+	<span class="hljs-attr">"token"</span>: <span class="hljs-number">"1454545454878784"</span>,
+	<span class="hljs-attr">"tokenid"</span>: <span class="hljs-number">"529d7cb6a75e4bab8d71eb09dcd489e0"</span>,
+	<span class="hljs-attr">"expmonth"</span>: <span class="hljs-number">2</span>,
+	<span class="hljs-attr">"expyear"</span>: <span class="hljs-number">2028</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<h5>Card Encryption</h5>
+						<p>To strengthen the security of sensitive credit card details, the structure “card” must be encrypted when creating tokens. That means this json object must be encrypted independently using a public key received by Cardtokens. Cardtokens will then decrypt the encrypted card object at runtime by an internal secure stored private key. This public key will be received when the account is setup at Cardtokens.</p>
+						<h6>Encryption algorithm</h6>
+						<p>The PAN is encrypted using RSA and the padding scheme from PKCS #1 v1.5.</p>
+						<h6>Steps for encrypting</h6>
+						<ol>
+							<li>Transform the card JSON object to a JSON string</li>
+							<li>Encrypt the JSON string using the public key</li>
+							<li>Encode the binary encrypted string to base64</li>
+							<li>Set the value of enccard to the base64 encoded string, which contains the encrypted card details.</li>
+
+						</ol>
+
+						<br><br>
+
+						<!-- get cryptogram -->
+						<h3 id="item-3-5">Get cryptogram</h3>
+						<p>This API call is used to get a cryptogram on behalf of a token that needs to be used for the authorization.</p>
+						<p>The full flow for generating a cryptogram is defined below. Please note that if no secure server (3D) is involved, steps 1 and 2 can be skipped, and the flow starts at step 3. <font style="background-color: yellow">Also note that cryptograms are used for <b>CIT</b> payment flows only, where the cardholder initiates the payment process. </font></p>
+						<p>Notice that there is no liability shifting when using tokens. Liability is only shifted by the rules handled by the secure server. When no secure server is used liability is normally placed on the merchant. Cardtokens advise their clients to contact their connected acquirers for more details about liability and shifting.</p>
+						<p>Notice in the flow described below, Cardtokens is only involved in the calls inside the red box.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/get-cryptogram.png" alt="Get cryptogram flow"></td>
+									<!-- td>
+										<p>1) The integrator initiates the onboarding of a merchant by calling Cardtokens.</p>
+										<p>2) Cardtokens onboards towards Mastercard MDES.</p>
+										<p>3) Cardtokens onboards to VISA VTS.</p>
+										<p>4) The integrator will receive a Merchant ID when the onboarding is completed to both VTS and MDES. </p>
+
+									</td-->
+								</tr>
+							</table>
+						</p>
+						Steps:
+						<ol>
+							<li>The integrator communicates with the secure server to authenticate the cardholder. In the case of a challenge, the cardholder must perform identity verification.</li>
+							<li>When the cardholder is authenticated, the authentication data is returned to the integrator (CAVV, AVV).</li>
+							<li>The requester calls the Cardtokens API to generate a cryptogram on behalf of a token.</li>
+							<li>Cardtokens communicate with the card scheme, which owns the network token.</li>
+							<li>Upon validation, the card scheme returns to Cardtokens with a cryptogram.</li>
+							<li>Cardtokens returns to the integrator with the cryptogram received from the card scheme.</li>
+							<li>The integrator performs an authorization request to the connected acquirer.</li>
+							<li>The acquirer returns with an authorization response to the integrator.</li>
+						</ol>
+						<h5>Endpoint and method</h5>
+						<p>Method: POST</p>
+						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/cryptogram</p>
+						<h5>Request parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">Reference</td>
+										<td>String</td>
+									    <td><b>Required.</b> The order reference used for the purchase.</td>
+									</tr>
+
+									<tr>
+									    <td class="theme-bg-light">transactiontype</td>
+										<td>String</td>
+									    <td>Optional. The transaction type can be one of “ecom”, “recurring”. Default “ecom”</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">unpredictablenumber</td>
+										<td>String</td>
+									    <td>Optional. Random number that can be generated by the merchant for use generating the cryptogram (Mastercard only). If this is skipped Cardtokens will generate a random number. Length must be either 0 or 8 and numbers only (0-9).</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Response parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">cryptogram</td>
+										<td>String</td>
+									    <td>
+											The cryptogram to be included in the authorization with the acquirer.<br>
+											<br>
+											For Mastercard, this is the de48se43Data. MinLength: 1, maxLength: 32, example: "11223344556677889900112233445566".<br>
+											<br>
+											For Visa, this is the cryptogram from the “Cryptogram Info” structure. Format: Alphabetic, numeric; maximum 28 characters.<br>
+											<br>
+											For the test scheme, the cryptogram is a base64 formatted GUID.<br>
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">token</td>
+										<td>String</td>
+									    <td>
+											The major scheme network token generated. Please refer to “Create Token” for details about this field.
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expmonth</td>
+										<td>Integer</td>
+									    <td>The expiry month of the cryptogram. Formatted as N2 (e.g. 11).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expyear</td>
+										<td>Integer</td>
+									    <td>The expiry year of the cryptogram. Formatted as N4 (e.g. 2099).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">par</td>
+										<td>String</td>
+									    <td>Payment account reference. Used for digital receipts and loyalty.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">paymentdataid</td>
+										<td>String</td>
+									    <td>The unique reference to the cryptogram stored at Cardtokens.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">scheme</td>
+										<td>String</td>
+									    <td>The card scheme of the cryptogram. It can be of “visa”, “mastercard” or “testscheme”.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">tokenid</td>
+										<td>String</td>
+									    <td>The tokenid passed as request for creating the cryptogram.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Example request</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"123j12323"</span>,
+	<span class="hljs-attr">"transactiontype"</span>: <span class="hljs-string">"ecom"</span>,
+	<span class="hljs-attr">"unpredictablenumber"</span>: <span class="hljs-string">"87654321"</span>
+}
+							</code></pre>
+						</div>
+						<h5>Example response</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"cryptogram"</span>: <span class="hljs-string">"NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE="</span>,
+	<span class="hljs-attr">"token"</span>: <span class="hljs-number">"4492697777715235"</span>,
+	<span class="hljs-attr">"expmonth"</span>: <span class="hljs-number">2</span>,
+	<span class="hljs-attr">"expyear"</span>: <span class="hljs-number">2028</span>,
+	<span class="hljs-attr">"par"</span>: <span class="hljs-number">"91e2eb3cc21347499aa2c74c218f4fc8"</span>,
+	<span class="hljs-attr">"paymentdataid"</span>: <span class="hljs-number">"7f62909ce76147a99525f5c699d17ef8"</span>,
+	<span class="hljs-attr">"scheme"</span>: <span class="hljs-number">"testscheme"</span>,
+	<span class="hljs-attr">"tokenid"</span>: <span class="hljs-number">"529d7cb6a75e4bab8d71eb09dcd489e0"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<h6>Cryptogram lifetime</h6>
+						<p>When cryptograms are created, the cryptogram must be stored in memory only! It’s a requirement from the major schemes. That means a new cryptogram must be requested on runtime every time a CIT payment is made and immediately used in the authorization towards the acquirer.</p>
+						<h6>3D secure testing</h6>
+						<p>Unfortunately, there is no option to test the create cryptogram API call using a test-API-key. Instead, live production tests must be performed to test the full end-2-end flow using a secure server. Please get in touch with Cardtokens for information on how to perform this test.</p>
+						<h6>Get cryptogram for CIT / MIT</h6>
+						<p>Normally it’s only for CIT type of payment flows where a cryptogram is required. For MIT the cryptogram is only required for the first authorization / sign-up. For the subsequent authorizations, the payment service provider normally refers to the previous or initial authorization where the cryptogram was requested.</p>
+
+						<br><br>
+
+						<!-- get token status -->
+						<h3 id="item-3-6">Get token status</h3>
+						<p>Use this API call to delete a token. The flow is described in the illustration below.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/get-token-status.png" alt="Get token status flow"></td>
+								</tr>
+							</table>
+						</p>
+						<h5>Endpoint and method</h5>
+						<p>Method: GET </p>
+						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/status</p>
+						<h5>Response parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expmonth</td>
+										<td>Integer</td>
+									    <td>The expiry month of the cryptogram. Formatted as N2 (e.g. 11).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expyear</td>
+										<td>Integer</td>
+									    <td>The expiry year of the cryptogram. Formatted as N4 (e.g. 2099).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">token</td>
+										<td>String</td>
+									    <td>The major scheme network token generated. Please refer to “Create Token” for details about this field.</td>
+									</tr>
+									
+									<tr>
+									    <td class="theme-bg-light">status</td>
+										<td>String</td>
+									    <td>Status of the token. It can be of “ACTIVE” or “INACTIVE”.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">scheme</td>
+										<td>String</td>
+									    <td>The card scheme of the token. It can be of “visa”, “mastercard” or “testscheme”.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">tokenid</td>
+										<td>String</td>
+									    <td>The unique Cardtoken reference of the token.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Example response</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"expmonth"</span>: <span class="hljs-number">2</span>,
+	<span class="hljs-attr">"expyear"</span>: <span class="hljs-number">2028</span>,
+	<span class="hljs-attr">"token"</span>: <span class="hljs-number">"4492697777715235"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ACTIVE"</span>,
+	<span class="hljs-attr">"tokenid"</span>: <span class="hljs-number">"529d7cb6a75e4bab8d71eb09dcd489e0"</span>,
+	<span class="hljs-attr">"scheme"</span>: <span class="hljs-number">"visa"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						
+
+						<br><br>
+
+						<!-- delete token -->
+						<h3 id="item-3-7">Delete token</h3>
+						<p>Use this API call to delete a token. The flow is described in the illustration below.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/delete-token.png" alt="Delete token flow"></td>
+								</tr>
+							</table>
+						</p>
+						<h5>Endpoint and method</h5>
+						<p>Method: DELETE</p>
+						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/delete</p>
+						<h5>Response parameters</h5>
+						<p>There is no response parameters. The API call returns HTTP 200 on success.</p>
+
+						<br><br>
+
+						<!-- get cardart -->
+						<h3 id="item-3-8">Get card art</h3>
+						<p>Use this API call to get the graphical material of the card issued to the cardholder. The flow is as defined below.</p>
+						<p>The full flow for generating a cryptogram is defined below. Please note that if no secure server (3D) is involved, steps 1 and 2 can be skipped, and the flow starts at step 3. <font style="background-color: yellow">Also note that cryptograms are used for <b>CIT</b> payment flows only, where the cardholder initiates the payment process. </font></p>
+						<p>Notice that there is no liability shifting when using tokens. Liability is only shifted by the rules handled by the secure server. When no secure server is used liability is normally placed on the merchant. Cardtokens advise their clients to contact their connected acquirers for more details about liability and shifting.</p>
+						<p>Notice in the flow described below, Cardtokens is only involved in the calls inside the red box.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/card-art.png" alt="Get card art flow"></td>
+									<!-- td>
+										<p>1) The integrator initiates the onboarding of a merchant by calling Cardtokens.</p>
+										<p>2) Cardtokens onboards towards Mastercard MDES.</p>
+										<p>3) Cardtokens onboards to VISA VTS.</p>
+										<p>4) The integrator will receive a Merchant ID when the onboarding is completed to both VTS and MDES. </p>
+
+									</td-->
+								</tr>
+							</table>
+						</p>
+						<h5>Endpoint and method</h5>
+						<p>Method: GET</p>
+						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/cardart</p>
+						<h5>Response parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">b64image</td>
+										<td>String</td>
+									    <td>
+											A base 64 encoded value of the PNG. This can be inserted directly into an IMG tag or decoded and written to file.
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">mimetype</td>
+										<td>String</td>
+									    <td>
+											The http protocol formatting type of the image. Currently only image/png is available.
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">width</td>
+										<td>Integer</td>
+									    <td>The width of the image.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">height</td>
+										<td>Integer</td>
+									    <td>The height of the image.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">last4</td>
+										<td>String</td>
+									    <td>The last 4 digits of the PAN.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expmonth</td>
+										<td>Integer</td>
+									    <td>The expiry month of the token. N2 formatted as 12.</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">expyear</td>
+										<td>Integer</td>
+									    <td>The expiry year of the token. Formatted as N4 (e.g. 2099).</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">issuer</td>
+										<td>String</td>
+									    <td>The name of the bank which has issued the card.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Example response</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"b64image"</span>: <span class="hljs-string">"iVBORw0KGgoAA………………AAGUCAYA="</span>,
+	<span class="hljs-attr">"mimetype"</span>: <span class="hljs-number">"image/png"</span>,
+	<span class="hljs-attr">"height"</span>: <span class="hljs-number">404</span>,
+	<span class="hljs-attr">"width"</span>: <span class="hljs-number">640</span>,
+	<span class="hljs-attr">"expmonth"</span>: <span class="hljs-number">2</span>,
+	<span class="hljs-attr">"expyear"</span>: <span class="hljs-number">2028</span>,
+	<span class="hljs-attr">"last4"</span>: <span class="hljs-number">"6486"</span>,
+	<span class="hljs-attr">"issuer"</span>: <span class="hljs-number">"Bank of Cardtokens"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<h6>How to display the image</h6>
+						<p>The base64 encoded image can be displayed in HTML using this format:
+							<br>
+							<code>&lt;img src=”data:{mimetype};base64, {b64image}” /&gt;</code>
+						</p>
+						<p>From the example, this will look like this:
+							<br>
+							<code>&lt;img src=”data:image/png;base64, iVBORw0KGgoAA………………AAGUCAYA=” /&gt;</code>
+						</p>
+						<h6>Request limitations</h6>
+						<p style="background-color: yellow;">You should only request the Card Art when a status notification of a token is received. The result of this API call will never change unless the issuer pushes token updates.</p>
+
+						<br><br>
+
+						<!-- notification -->
+						<h3 id="item-3-9">Notification</h3>
+						<h5>Token status update</h5>
+						<p>When a change is made to a token from the card scheme network, a notification is transmitted. Changes in a token can be if the card is updated (issued a new card) or the token/card is deleted. The flow is described in the figure below.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/token-status-update.png" alt="Token status update flow"></td>
+								</tr>
+							</table>
+						</p>
+						<p>When a notification is sent, no data includes. It is up to the integrator to fetch the details needed by calling the token status or token card art functions.</p>
+						<h5>Endpoint and method</h5>
+						<p>Method: GET</p>
+						<p>Endpoint: https://www.website-super-shop/token/{tokenid}</p>
+
+						<br><br>
+
+						<!-- fallback using pan -->
+						<h3 id="item-3-10">Fallback using PAN</h3>
+						<p>Scheme tokenization is currently being rolled out to all regions globally. However, as this is a new standard, there might be some few tokens, that are rejected due to declines at issuers.</p>
+						<p>To accommodate the conversion rate a fallback by using standard PANs for COF is recommended when creating tokens and when creating cryptograms. For that reason the integrator must store the PAN (encrypted) with the token and use the standard PAN as authorization if the token somehow fails.</p>
+						<h5>Fallback when requesting token</h5>
+						<p>The illustration below shows how to perform fallback for token creation.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/fallback-requesting-token.png" alt="Fallback requesting token flow"></td>
+									<td>
+										<ol style="font-size: x-small">
+											<li>Integrator requests Cardtokens to create a token by PAN data.</li>
+											<li>Cardtokens identifies the scheme.</li>
+											<li>Cardtokens requests a token against the scheme.</li>
+											<li>Create token fails and no token is created.</li>
+											<li>Cardtokens returns to the integrator without token data.</li>
+											<li>The integrator stores the PAN encrypted as fallback. If authorization is made it is done as standard COF using PAN.</li>
+										</ol>
+									</td>
+								</tr>
+							</table>
+						</p>
+						<h5>Fallback when requesting cryptogram</h5>
+						<p>The illustration below shows how to perform fallback for cryptogram creation.</p>
+						<p>
+							<table>
+								<tr>
+									<td><img src="./assets/flows/fallback-requesting-cryptogram.png" alt="Fallback requesting cryptogram flow"></td>
+									<td>
+										<ol style="font-size: x-small">
+											<li>The integrator requests a cryptogram for a token.</li>
+											<li>Cardtokens requests the scheme for a cryptogram.</li>
+											<li>Create cryptogram fails and no cryptogram is created.</li>
+											<li>Cardtokens returns to the integrator without cryptogram.</li>
+											<li>The integrator authorizes using standard PAN.</li>
+										</ol>
+									</td>
+								</tr>
+							</table>
+						</p>
+						
+						<br><br>
+
+						<!-- smart debugging -->
+						<h3 id="item-3-11">Smart debugging</h3>
+						<p>To perform easy and simple debugging we recommend to add a unique (GUID) requestID to each request in the header. Cardtokens will then grap the requestID and store with the request/response data in Cardtokens. This will link data together and help everyone to solve problems quickly. </p>
+						<p>The header is named “x-request-id” and should contain an unique value. That could be a timestamp or a simple GUID (recommended without hyphens). </p>
+						<p>Example of this header written in node:</p>
+						<code>
+							headers: { 'x-request-id': ' b50accf67ae24a729846d538d1f096d7' }
+						</code>
+						
 					</section>
 				</article>
 						
