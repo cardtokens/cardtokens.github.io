@@ -192,7 +192,7 @@
 						<h5>Delete token</h5>
 						<p>When a token is no longer needed, it must be deleted by this function.</p>
 						<h5>Get card art</h5>
-						<p>It is used to get the graphical details of a payment card associated with a token.</p>
+						<p>It is used to request the graphical details of a payment card associated with a token. The card art is then notified to the requester using configured card art notification URL.</p>
 						<h5>Token notification</h5>
 						<p>When the issuer updates a token, an HTTP GET notification is transmitted from Cardtokens to 3rd parties.</p>
 						<h5>Merchant onboarded notification</h5>
@@ -807,13 +807,11 @@
 						<!-- get cardart -->
 						<h3 id="item-3-8">Get card art</h3>
 						<p>Use this API call to get the graphical material of the card issued to the cardholder. The flow is as defined below.</p>
-						<p>The full flow for generating a cryptogram is defined below. Please note that if no secure server (3D) is involved, steps 1 and 2 can be skipped, and the flow starts at step 3. <font style="background-color: yellow">Also note that cryptograms are used for <b>CIT</b> payment flows only, where the cardholder initiates the payment process. </font></p>
-						<p>Notice that there is no liability shifting when using tokens. Liability is only shifted by the rules handled by the secure server. When no secure server is used liability is normally placed on the merchant. Cardtokens advise their clients to contact their connected acquirers for more details about liability and shifting.</p>
-						<p>Notice in the flow described below, Cardtokens is only involved in the calls inside the red box.</p>
+						<p>Notice that the flow is split up into two steps. 1) the requester requests card art to a token given. Later when the card art is generated Cardtokens sends an async notification including the card art payload.</p>
 						<p>
 							<table>
 								<tr>
-									<td><img src="./assets/flows/card-art.png" alt="Get card art flow"></td>
+									<td><img src="./assets/flows/card-art-2.png" alt="Get card art flow"></td>
 									<!-- td>
 										<p>1) The integrator initiates the onboarding of a merchant by calling Cardtokens.</p>
 										<p>2) Cardtokens onboards towards Mastercard MDES.</p>
@@ -828,6 +826,45 @@
 						<p>Method: GET</p>
 						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/cardart</p>
 						<h5>Response parameters</h5>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>Parameter name</th>
+										<th>Data type</th>
+										<th>Description</th>
+									</tr>
+								    <tr>
+									    <td class="theme-bg-light">url</td>
+										<td>String</td>
+									    <td>
+											The full URL to where the notification is transmitted by HTTP POST including card art details.
+										</td>
+									</tr>
+									<tr>
+									    <td class="theme-bg-light">tokencardartqueueid</td>
+										<td>String</td>
+									    <td>
+											The uniqueue reference to the enqueued request for card art.
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h5>Example response</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://YOUR-DOMAIN-FOR-CARDART-NOTIFICATIONS/{tokenid}"</span>,
+	<span class="hljs-attr">"tokencardartqueueid"</span>: <span class="hljs-number">"5f6463cbdf4b423590d916aab22f8e44"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+
+						<h5>Noification parameters</h5>
+						<h5>Endpoint and method</h5>
+						<p>Method: POST</p>
+						<p>Endpoint: https://YOUR-DOMAIN-FOR-CARDART-NOTIFICATIONS/{tokenid}</p>
 						<div class="table-responsive my-4">
 							<table class="table table-bordered">
 								<tbody>
@@ -883,7 +920,7 @@
 								</tbody>
 							</table>
 						</div>
-						<h5>Example response</h5>
+						<h5>Example payload</h5>
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
@@ -898,6 +935,7 @@
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
+
 						<h6>How to display the image</h6>
 						<p>The base64 encoded image can be displayed in HTML using this format:
 							<br>
@@ -907,9 +945,7 @@
 							<br>
 							<code>&lt;img src=”data:image/png;base64, iVBORw0KGgoAA………………AAGUCAYA=” /&gt;</code>
 						</p>
-						<h6>Request limitations</h6>
-						<p style="background-color: yellow;">You should only request the Card Art when a status notification of a token is received. The result of this API call will never change unless the issuer pushes token updates.</p>
-
+						
 						<br><br>
 
 						<!-- notification -->
