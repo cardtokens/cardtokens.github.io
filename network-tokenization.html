@@ -29,7 +29,6 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
 
 	<link id="payonic-style" rel="stylesheet" href="assets/css/payonic.css">
-
 </head> 
 
 <body class="docs-page">    
@@ -102,15 +101,15 @@
 					    <h1 class="docs-heading">Introduction</h1>
 					    <section class="docs-intro">
 							<p>This document aims to form an overview of the Cardtokens integration API to help 3rd party integrators connect to Cardtokens and process major network tokens.</p>
-							<h4 id="item-1-1">Cardtokens</h4>
-						    <p>Cardtokens Aps is a token aggregator that helps acquirers, payment service providers, and large and enterprise merchants connect token services to major card schemes using a uniform API, which is plug ’n play for the developers. Using the SasS platform by Cardtokens Aps, 3rd parties can easily start converting their existing PAN into network tokens and minimize the risk of exposed PANs.</p>
-							<h4 id="item-1-2">CIT</h4>
+							<h4 id="item-1-1" style="padding-top: 15px;">Cardtokens</h4>
+						    <p>Cardtokens Aps is a token aggregator that helps acquirers, payment service providers (PSP), and large and enterprise merchants connect token services to major card schemes using a uniform API, which is plug ’n play for the developers. Using the SasS platform by Cardtokens Aps, 3rd parties can easily start converting their existing PAN into network tokens and minimize the risk of exposed PANs.</p>
+							<h4 id="item-1-2" style="padding-top: 15px;">CIT</h4>
 							<p>With <b>CIT network tokenization</b>, we ensure that each cardholder-initiated transaction is securely tokenized, replacing sensitive payment information with unique identifiers. By doing so, we eliminate the need for businesses to store sensitive card data, significantly reducing the risk of data breaches and enhancing overall security. This not only safeguards customer information but also instills trust and confidence in your brand.</p>
-							<h4 id="item-1-3">MIT</h4>
+							<h4 id="item-1-3" style="padding-top: 15px;">MIT</h4>
 							<p>Additionally, our <b>MIT network tokenization</b> provides merchants with greater control and flexibility over recurring or subscription-based payments. Through tokenization, we create a secure token that represents the customer's payment information, eliminating the need to store actual card data on the merchant's system. This enhances the customer experience by simplifying the payment process while maintaining the highest standards of security.</p>
-							<h4 id="item-1-4">Card schemes connected</h4>
+							<h4 id="item-1-4" style="padding-top: 15px;">Card schemes connected</h4>
 							<p>Cardtokens supports VISA (VTS) and Mastercard (MDES/M4M).</p>
-							<h4 id="item-1-5">Terms and Definitions</h4>
+							<h4 id="item-1-5" style="padding-top: 15px;">Terms and Definitions</h4>
 							<p>
 								<style>
 									.tableTerms tr td:first-child {
@@ -148,62 +147,64 @@
 				    </header>
 			    </article><!--//docs-article-->
 
-				<article class="docs-article" id="section-2">
-					<section class="docs-sectionx">
+				<article class="docs-article" id="section-2" style="margin-top: 0px; padding-top: 0px;">
+					<section class="docs-section">
 						<h1 class="section-heading">Get started</h1>
-						<h4 id="item-2-1">Get a free test-account</h4>
-						<p>The integrator needs to apply for a test account: https://www.cardtokens.io/get-started.</p>
+						<h4 id="item-2-1" style="padding-top: 15px;">Get a free test-account</h4>
+						<p>The integrator needs to apply for a test account: <a href="https://www.cardtokens.io/get-started" target="_blank">https://www.cardtokens.io/get-started</a></p>
 						<p>When the test account is in place, the integrator must set up API keys and an endpoint to receive push notifications upon token updates.</p>
-						<h4 id="item-2-2">How to test</h4>
+						<h4 id="item-2-2" style="padding-top: 15px;">How to test</h4>
 						<p>Before you can perform a test, a test-API-key must be created. When creating tokens using this test-API-key, the following test PANs can be used only:</p>
 						<h5 id="item-2-3">Visa</h5>
 						<p>
 							<ul style="font-size: small;">
-								<li>4111111145551142</li>
-								<li>4293189100000008</li> 
-								<li>4166676667666746</li>
-								<li>4646464646464644</li>
-								<li>4000060000000006</li>
+								<li style="letter-spacing: 4px;">4111 1111 4555 1142</li>
+								<li style="letter-spacing: 2px;">4293 1891 0000 0008</li> 
+								<li style="letter-spacing: 2px;">4166 6766 6766 6746</li>
+								<li style="letter-spacing: 2px;">4646 4646 4646 4644</li>
+								<li style="letter-spacing: 2px;">4000 0600 0000 0006</li>
 							</ul>
 						</p>
 						<h5 id="item-2-3">Mastercard</h5>
 						<p>
 							<ul style="font-size: small;">
-								<li>5555341244441115</li>
-								<li>5577000055770004</li>
-								<li>5555555555554444</li>
-								<li>2222400050000009</li>
-								<li>2222400030000004</li>
+								<li style="letter-spacing: 3px;">5555 3412 4444 1115</li>
+								<li style="letter-spacing: 2px;">5577 0000 5577 0004</li>
+								<li style="letter-spacing: 2px;">5555 5555 5555 4444</li>
+								<li style="letter-spacing: 2px;">2222 4000 5000 0009</li>
+								<li style="letter-spacing: 2px;">2222 4000 3000 0004</li>
 							</ul>
 						</p>
 						<p>
 							When requesting using the test PANs, the expiry date must be valid (unexpired). 
 						</p>
-						<h4 id="item-2-4">Functions available </h4>
+						<h4 id="item-2-4" style="padding-top: 15px;">Functions available </h4>
 						<p>For Cardtokens to provide the SaaS solution to the integrator, the following functions must / can be implemented:</p>
+						<div style="padding: 10px;">
 						<h5>Onboarding</h5>
 						<p>Function to create a merchant on the VTS/MDES platform</p>
-						<h5>Create token</h5>
+						<h5 style="padding-top: 10px;">Create token</h5>
 						<p>Creates a network token on behalf of CHD and returns the token to the requester (acquirer, PSP, merchant).</p>
-						<h5>Create cryptogram / get payment data</h5>
+						<h5 style="padding-top: 10px;">Create cryptogram / get payment data</h5>
 						<p>Must be initiated when authorization is to be made by PSP. </p>
-						<h5>Get token status</h5>
+						<h5 style="padding-top: 10px;">Get token status</h5>
 						<p>This method is used to request the status of an existing token.</p>
-						<h5>Delete token</h5>
+						<h5 style="padding-top: 10px;">Delete token</h5>
 						<p>When a token is no longer needed, it must be deleted by this function.</p>
-						<h5>Get card art</h5>
+						<h5 style="padding-top: 10px;">Get card art</h5>
 						<p>It is used to request the graphical details of a payment card associated with a token. The card art is then notified to the requester using configured card art notification URL.</p>
-						<h5>Token notification</h5>
+						<h5 style="padding-top: 10px;">Token notification</h5>
 						<p>When the issuer updates a token, an HTTP GET notification is transmitted from Cardtokens to 3rd parties.</p>
-						<h5>Merchant onboarded notification</h5>
+						<h5 style="padding-top: 10px;">Merchant onboarded notification</h5>
 						<p>An HTTP GET notification is transmitted from Cardtokens to 3rd parties when a merchant is fully enrolled within the scheme environments.</p>
+					</div>
 					</section>
 				</article>
 
-				<article class="docs-article" id="section-3">
+				<article class="docs-article" id="section-3" style="margin-top: 0px; padding-top: 0px;">
 					<section class="docs-section">
-						<h2 class="section-heading">API</h2>
-						<h4 id="item-3-1">Authentication and headers required</h4>
+						<h1 class="section-heading">API</h1>
+						<h4 id="item-3-1" style="padding-top: 15px;">Authentication and headers required</h4>
 						<p>The Cardtokens API is a rest full API over HTTPS connection. Data is encrypted using TLS 1.2. Authentication is required for each request using a shared API key added to the HTTP headers.</p>
 						<p>Two headers must be added to the HTTP request when transmitting the request:</p>
 						<ul>
@@ -211,12 +212,12 @@
 							<li>X-Api-Key: 5251XXX-THE-API-KEY-XXXXX6bd69</li>
 						</ul>
 						<p>The prefix for the endpoint of the Cardtokens API is: https://api.cardtokens.io/api</p>
-						<h4 id="item-3-2">API response</h4>
+						<h4 id="item-3-2" style="padding-top: 15px;">API response</h4>
 						<p>On success, the Cardtokens API responds by HTTP 200, and a valid payload is transmitted back to the client.</p>
 						<p>On failure, the Cardtokens API responds by any other status code than HTTP 200. The reason is transmitted back to the client in the payload.</p>
 
 						<!-- onboard merchant -->
-						<h3 id="item-3-3">Onboard merchant</h3>
+						<h4 id="item-3-3" style="padding-top: 15px;">Onboard merchant</h4>
 						<p>Each merchant must be onboarded to the platform before the integrator can start to tokenize the PANs. When the merchant is onboarded toward VTS and MDES, the integrator will receive a unique Merchant ID. Below is a state-chart diagram, which shows the onboarding flow.</p>
 						<p>
 							<table>
@@ -234,52 +235,54 @@
 						</p>
 						<h5>Endpoint and method</h5>
 						<p>Method: POST</p>
-						<p>Endpoint: https://api.cardtokens.io/api/merchant</p>
-						<h5>Request parameters</h5>
+						<p>Endpoint: <a href="https://api.cardtokens.io/api/merchant" target="_blank">https://api.cardtokens.io/api/merchant</a></p>
+						<h5 style="padding-top: 15px;">Request parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col">Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col">Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">companyprimarylegalname</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The legal name of the merchant.</td>
 									</tr>
 
 									<tr>
 									    <td class="theme-bg-light">primarywebsiteurl</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The primary website URL of the merchant. Must start with https://.</td>
 									</tr>
 									<tr>
 									    <td class="theme-bg-light">companycity</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The city of the merchant.</td>
 									</tr>
 									<tr>
 									    <td class="theme-bg-light">companycountrycode</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The country code of the merchant. E.g., Denmark is “DK”. The field is formatted according to ISO-3166-2.</td>
 									</tr>
 									<tr>
 									    <td class="theme-bg-light">primarycontactemail</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The e-mail address of the primary contact at the merchant.</td>
 									</tr>
 									<tr>
 									    <td class="theme-bg-light">businessidentificationtype</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The type of business identification type. For the following countries, this value must be “VAT”.
 											Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Republic of Cyprus, Romania, Saudi Arabia, Slovak Republic, Slovenia, South Africa, Spain, Sweden, Switzerland, Turkey, Ukraine, United Arab Emirates, United Kingdom.
 										</td>
 									</tr>
 									<tr>
 									    <td class="theme-bg-light">businessidentificationvalue</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td><b>Required.</b> The value associated with the business identifier type, if provided.
 											For the countries specified, the value has to be formatted like {countrycode}{value}. E.g., Cardtokens Aps is formatted like DK42967920.
 										</td>
@@ -289,21 +292,23 @@
 						</div>
 						<h5>Response parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
+										<th scope="col">Parameter name</th>
+										<th scope="col">Data type</th>
+										<th scope="col">Description</th>
 									</tr>
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">merchantid</td>
-										<td>String</td>
+										<td style="text-align: center;">String</td>
 									    <td>The unique reference to the onboarded merchant.</td>
 									</tr>
 									<tr>
 									    <td class="theme-bg-light">schemes</td>
-										<td>String[]</td>
+										<td style="text-align: center;">String[]</td>
 									    <td>An array of schemes connected to this merchant. Values can be of “visa”, “mastercard”, “testscheme”.</td>
 									</tr>
 								</tbody>
@@ -332,25 +337,26 @@
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
-						<h5>Onboard time</h5>
+						<h5 style="padding-top: 15px;">Onboard time</h5>
 						<p>
-							<b>Notice that it takes approx.  48 hours for the schemes to enable an onboarded merchant. </b>
-							Merchants who are not yet enabled within the schemes will return an error 400 (status code) upon create token requests:
+							<strong style="font-size: small; color: #660000;">Notice that it takes approx.  48 hours for the schemes to enable an onboarded merchant. </strong>
+							<br><br>
+							Merchants who are not yet onboarded with the schemes will return an error 400 (status code) upon create token requests:
 							<br>
 							<i>{"status":400,"message":"Input to tokenRequestorId is invalid","reason":"trConfigIssue"}</i>
 						</p>
-						<h5>Scheme onboarding notification</h5>
+						<h5 style="padding-top: 15px;">Scheme onboarding notification</h5>
 						<p>When the merchant is confirmed enabled with all the connected schemes, Cardtokens will notify the integrator using GET. You are now able to generate network tokens for the merchant. Cardtokens notifies when Cardtokens has validated that the onboarded agreement works by creating a token directly towards the schemes. A notification is transmitted for each scheme onboarded.</p>
-						<h6>Endpoint and method</h6>
+						<h6 style="padding-top: 10px;">Endpoint and method</h6>
 						<p>Method: GET</p>
-						<p>End point: https://www.website-super-shop /merchant/{merchantid}/visa</p>
-						<p>End point: https://www.website-super-shop /merchant/{merchantid}/mastercard</p>
-						<p>End point: https://www.website-super-shop /merchant/{merchantid}/testscheme (test only)</p>
+						<p>End point: <a href="#">https://www.website-super-shop /merchant/{merchantid}/visa</a></p>
+						<p>End point: <a href="#">https://www.website-super-shop /merchant/{merchantid}/mastercard</a></p>
+						<p>End point: <a href="#">https://www.website-super-shop /merchant/{merchantid}/testscheme</a> <strong>(test only)</strong></p>
 						
-						<br><br>
+						
 
 						<!-- create token -->
-						<h3 id="item-3-4">Create Token</h3>
+						<h4 id="item-3-4" style="padding-top: 25px;">Create Token</h4>
 						<p>This call generates a network token on behalf of a PAN. The flow is as follows.</p>
 						<p>
 							<table>
@@ -368,16 +374,18 @@
 						</p>
 						<h5>Endpoint and method</h5>
 						<p>Method: POST</p>
-						<p>Endpoint: https://api.cardtokens.io/api/token</p>
-						<h5>Request parameters</h5>
+						<p>Endpoint: <a href="https://api.cardtokens.io/api/token" target="_blank">https://api.cardtokens.io/api/token</a></p>
+						<h5 style="padding-top: 15px;">Request parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col">Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col">Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">card.pan</td>
 										<td>String</td>
@@ -448,13 +456,15 @@
 						</div>
 						<h5>Response parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col" nowrap>Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col"nowrap>Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">scheme</td>
 										<td>String</td>
@@ -542,9 +552,9 @@
 						</div><!--//docs-code-block-->
 						<h5>Card Encryption</h5>
 						<p>To strengthen the security of sensitive credit card details, the structure “card” must be encrypted when creating tokens. That means this json object must be encrypted independently using a public key received by Cardtokens. Cardtokens will then decrypt the encrypted card object at runtime by an internal secure stored private key. This public key will be received when the account is setup at Cardtokens.</p>
-						<h6>Encryption algorithm</h6>
+						<h6 style="padding-top: 10px;">Encryption algorithm</h6>
 						<p>The PAN is encrypted using RSA and the padding scheme from PKCS #1 v1.5.</p>
-						<h6>Steps for encrypting</h6>
+						<h6 style="padding-top: 10px;">Steps for encrypting</h6>
 						<ol>
 							<li>Transform the card JSON object to a JSON string</li>
 							<li>Encrypt the JSON string using the public key</li>
@@ -553,10 +563,8 @@
 
 						</ol>
 
-						<br><br>
-
 						<!-- get cryptogram -->
-						<h3 id="item-3-5">Get cryptogram</h3>
+						<h4 id="item-3-5" style="padding-top: 25px;">Get cryptogram</h4>
 						<p>This API call is used to get a cryptogram on behalf of a token that needs to be used for the authorization.</p>
 						<p>The full flow for generating a cryptogram is defined below. Please note that if no secure server (3D) is involved, steps 1 and 2 can be skipped, and the flow starts at step 3. <font style="background-color: yellow">Also note that cryptograms are used for <b>CIT</b> payment flows only, where the cardholder initiates the payment process. </font></p>
 						<p>Notice that there is no liability shifting when using tokens. Liability is only shifted by the rules handled by the secure server. When no secure server is used liability is normally placed on the merchant. Cardtokens advise their clients to contact their connected acquirers for more details about liability and shifting.</p>
@@ -575,7 +583,7 @@
 								</tr>
 							</table>
 						</p>
-						Steps:
+						<strong>Steps:</strong>
 						<ol>
 							<li>The integrator communicates with the secure server to authenticate the cardholder. In the case of a challenge, the cardholder must perform identity verification.</li>
 							<li>When the cardholder is authenticated, the authentication data is returned to the integrator (CAVV, AVV).</li>
@@ -586,18 +594,20 @@
 							<li>The integrator performs an authorization request to the connected acquirer.</li>
 							<li>The acquirer returns with an authorization response to the integrator.</li>
 						</ol>
-						<h5>Endpoint and method</h5>
+						<h5 style="padding-top: 10px;">Endpoint and method</h5>
 						<p>Method: POST</p>
-						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/cryptogram</p>
-						<h5>Request parameters</h5>
+						<p>Endpoint: <a href="#">https://api.cardtokens.io/api/token/{tokenid}/cryptogram</a></p>
+						<h5 style="padding-top: 10px;">Request parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col" nowrap>Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col"nowrap>Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">Reference</td>
 										<td>String</td>
@@ -619,13 +629,15 @@
 						</div>
 						<h5>Response parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col" nowrap>Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col"nowrap>Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">cryptogram</td>
 										<td>String</td>
@@ -706,15 +718,13 @@
 						</div><!--//docs-code-block-->
 						<h6>Cryptogram lifetime</h6>
 						<p>When cryptograms are created, the cryptogram must be stored in memory only! It’s a requirement from the major schemes. That means a new cryptogram must be requested on runtime every time a CIT payment is made and immediately used in the authorization towards the acquirer.</p>
-						<h6>3D secure testing</h6>
+						<h6 style="padding-top: 15px;">3D secure testing</h6>
 						<p>Unfortunately, there is no option to test the create cryptogram API call using a test-API-key. Instead, live production tests must be performed to test the full end-2-end flow using a secure server. Please get in touch with Cardtokens for information on how to perform this test.</p>
-						<h6>Get cryptogram for CIT / MIT</h6>
+						<h6 style="padding-top: 15px;">Get cryptogram for CIT / MIT</h6>
 						<p>Normally it’s only for CIT type of payment flows where a cryptogram is required. For MIT the cryptogram is only required for the first authorization / sign-up. For the subsequent authorizations, the payment service provider normally refers to the previous or initial authorization where the cryptogram was requested.</p>
 
-						<br><br>
-
 						<!-- get token status -->
-						<h3 id="item-3-6">Get token status</h3>
+						<h4 id="item-3-6" style="padding-top: 25px;">Get token status</h4
 						<p>Use this API call to delete a token. The flow is described in the illustration below.</p>
 						<p>
 							<table>
@@ -728,13 +738,15 @@
 						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/status</p>
 						<h5>Response parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col" nowrap>Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col"nowrap>Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 									<tr>
 									    <td class="theme-bg-light">expmonth</td>
 										<td>Integer</td>
@@ -784,10 +796,10 @@
 						</div><!--//docs-code-block-->
 						
 
-						<br><br>
+						
 
 						<!-- delete token -->
-						<h3 id="item-3-7">Delete token</h3>
+						<h4 id="item-3-7" style="padding-top: 25px;">Delete token</h4>
 						<p>Use this API call to delete a token. The flow is described in the illustration below.</p>
 						<p>
 							<table>
@@ -798,14 +810,14 @@
 						</p>
 						<h5>Endpoint and method</h5>
 						<p>Method: DELETE</p>
-						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/delete</p>
-						<h5>Response parameters</h5>
+						<p>Endpoint: <a href="#">https://api.cardtokens.io/api/token/{tokenid}/delete</a></p>
+						<h5 style="padding-top: 15px;">Response parameters</h5>
 						<p>There is no response parameters. The API call returns HTTP 200 on success.</p>
 
-						<br><br>
+						
 
 						<!-- get cardart -->
-						<h3 id="item-3-8">Get card art</h3>
+						<h4 id="item-3-8" style="padding-top: 25px;">Get card art</h4>
 						<p>Use this API call to get the graphical material of the card issued to the cardholder. The flow is as defined below.</p>
 						<p>Notice that the flow is split up into two steps. 1) the requester requests card art to a token given. Later when the card art is generated Cardtokens sends an async notification including the card art payload.</p>
 						<p>
@@ -824,16 +836,18 @@
 						</p>
 						<h5>Endpoint and method</h5>
 						<p>Method: GET</p>
-						<p>Endpoint: https://api.cardtokens.io/api/token/{tokenid}/cardart</p>
-						<h5>Response parameters</h5>
+						<p>Endpoint: <a href="#">https://api.cardtokens.io/api/token/{tokenid}/cardart</a></p>
+						<h5 style="padding-top: 15px;">Response parameters</h5>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col" nowrap>Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col"nowrap>Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">url</td>
 										<td>String</td>
@@ -862,17 +876,20 @@
 						</div><!--//docs-code-block-->
 
 						<h5>Noification parameters</h5>
-						<h5>Endpoint and method</h5>
+						<p style="color: red;">MANGLER</p>
+						<h5 style="padding-top: 15px;">Endpoint and method</h5>
 						<p>Method: POST</p>
-						<p>Endpoint: https://YOUR-DOMAIN-FOR-CARDART-NOTIFICATIONS/{tokenid}</p>
+						<p>Endpoint: <a href="#">https://YOUR-DOMAIN-FOR-CARDART-NOTIFICATIONS/{tokenid}</a></p>
 						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
+							<table class="table table-striped">
+								<thead>
 									<tr>
-										<th>Parameter name</th>
-										<th>Data type</th>
-										<th>Description</th>
-									</tr>
+										<th scope="col" nowrap>Parameter name</th>
+										<th scope="col" nowrap>Data type</th>
+										<th scope="col"nowrap>Description</th>
+									</tr>		
+								</thead>
+								<tbody>
 								    <tr>
 									    <td class="theme-bg-light">b64image</td>
 										<td>String</td>
@@ -946,10 +963,8 @@
 							<code>&lt;img src=”data:image/png;base64, iVBORw0KGgoAA………………AAGUCAYA=” /&gt;</code>
 						</p>
 						
-						<br><br>
-
 						<!-- notification -->
-						<h3 id="item-3-9">Notification</h3>
+						<h4 id="item-3-9" style="padding-top: 25px;">Notification</h4>
 						<h5>Token status update</h5>
 						<p>When a change is made to a token from the card scheme network, a notification is transmitted. Changes in a token can be if the card is updated (issued a new card) or the token/card is deleted. The flow is described in the figure below.</p>
 						<p>
@@ -961,16 +976,14 @@
 						</p>
 						<p>When a notification is sent, no data includes. It is up to the integrator to fetch the details needed by calling the token status or token card art functions.</p>
 						<h5>Endpoint and method</h5>
-						<p>Method: GET</p>
-						<p>Endpoint: https://www.website-super-shop/token/{tokenid}</p>
-
-						<br><br>
+						<p style="padding-top: 15px;">Method: GET</p>
+						<p>Endpoint: <a href="#">https://www.website-super-shop/token/{tokenid}</a></p>
 
 						<!-- fallback using pan -->
-						<h3 id="item-3-10">Fallback using PAN</h3>
+						<h4 id="item-3-10" style="padding-top: 25px;">Fallback using PAN</h4>
 						<p>Scheme tokenization is currently being rolled out to all regions globally. However, as this is a new standard, there might be some few tokens, that are rejected due to declines at issuers.</p>
 						<p>To accommodate the conversion rate a fallback by using standard PANs for COF is recommended when creating tokens and when creating cryptograms. For that reason the integrator must store the PAN (encrypted) with the token and use the standard PAN as authorization if the token somehow fails.</p>
-						<h5>Fallback when requesting token</h5>
+						<h5 style="padding-top: 15px;">Fallback when requesting token</h5>
 						<p>The illustration below shows how to perform fallback for token creation.</p>
 						<p>
 							<table>
@@ -1008,10 +1021,8 @@
 							</table>
 						</p>
 						
-						<br><br>
-
 						<!-- smart debugging -->
-						<h3 id="item-3-11">Smart debugging</h3>
+						<h4 id="item-3-11" style="padding-top: 25px;">Smart debugging</h4>
 						<p>To perform easy and simple debugging we recommend to add a unique (GUID) requestID to each request in the header. Cardtokens will then grap the requestID and store with the request/response data in Cardtokens. This will link data together and help everyone to solve problems quickly. </p>
 						<p>The header is named “x-request-id” and should contain an unique value. That could be a timestamp or a simple GUID (recommended without hyphens). </p>
 						<p>Example of this header written in node:</p>
